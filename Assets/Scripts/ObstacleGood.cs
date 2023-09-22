@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class ObstacleGood : MonoBehaviour
 {
-    private GameObject player;
-    private int count = 3;
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     // Update is called once per frame
@@ -21,7 +19,9 @@ public class Obstacle : MonoBehaviour
             Destroy(this.gameObject);
         }
         else if (collision.tag == "Player") {
-            Destroy(player.gameObject);
-        }
+            ScoreManager.score++;
+            Debug.Log(ScoreManager.score);
+            Destroy(this.gameObject);
+        }   
     }
 }

@@ -10,6 +10,7 @@ public class Attractor : MonoBehaviour
     [SerializeField] private float Radius=10;
     public List<Collider2D> AttractedObjects=new List<Collider2D>();
     [HideInInspector] public Transform attractorTransform;
+    public bool flag;
 
     void Awake()
     {
@@ -18,7 +19,14 @@ public class Attractor : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        SetAttractedObjects();
+        if (flag == true)
+        {
+            SetAttractedObjects();
+        }
+        else {
+            SetAttractedObjectsRect();
+        }
+        
     }
 
     // Update is called once per frame
@@ -30,6 +38,16 @@ public class Attractor : MonoBehaviour
     void SetAttractedObjects()
     {
         AttractedObjects=Physics2D.OverlapCircleAll(attractorTransform.position,Radius,AttractionLayer).ToList();
+    }
+
+    void SetAttractedObjectsRect()
+    {
+        // Calculate the bounds of the rectangle
+        Vector2 halfSize = new Vector2(Radius, Radius * 2); // Adjust the size as needed
+        Vector2 center = attractorTransform.position;
+
+        // Create a list of attracted objects using OverlapBoxAll
+        AttractedObjects = Physics2D.OverlapBoxAll(center, halfSize, 0f, AttractionLayer).ToList();
     }
 
     void AttractObjects() 
