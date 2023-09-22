@@ -34,7 +34,7 @@ public class Attractable : MonoBehaviour
         }
         else
         {
-            m_rigidbody.gravityScale=1;
+            m_rigidbody.gravityScale=0;
         }
     }
     public void Attract(Attractor attractorObj)
